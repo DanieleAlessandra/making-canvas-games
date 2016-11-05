@@ -3,12 +3,17 @@
     
     var App = {
         canvasElement: undefined,
-        canvasContext: undefined
+        canvasContext: undefined,
+        arcAngle: 0
     };
     
     App.draw = function () {
-        /// Qui si disegnano gli elementi
-        document.write('Draw ');
+        App.canvasContext.clearRect(0, 0, App.canvasElement.width, App.canvasElement.height);
+        App.canvasContext.beginPath();
+        App.canvasContext.lineWidth = 20;
+        App.canvasContext.strokeStyle = '#006699';
+        App.canvasContext.arc(275, 200, 150, 0, App.arcAngle);
+        App.canvasContext.stroke();
     };
     
     App.enterFrame = function () {
@@ -23,8 +28,10 @@
     };
     
     App.update = function () {
-        /// Qui si aggiornano gli elementi
-        document.write('Update ');
+        var currentDate = new Date(),
+            currentSeconds = currentDate.getSeconds();
+        
+        App.arcAngle = 2 * Math.PI / 60 * currentSeconds;
     };
     
     document.addEventListener('DOMContentLoaded', App.init);
